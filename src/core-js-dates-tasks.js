@@ -63,8 +63,18 @@ function getDayName(date) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const dateObj = new Date(date);
+  let weekday = dateObj.toLocaleDateString('en', { weekday: 'long' });
+  if (weekday === 'Friday') {
+    dateObj.setDate(dateObj.getDate() + 7);
+    return dateObj;
+  }
+  while (weekday !== 'Friday') {
+    dateObj.setDate(dateObj.getDate() + 1);
+    weekday = dateObj.toLocaleDateString('en', { weekday: 'long' });
+  }
+  return dateObj;
 }
 
 /**

@@ -169,8 +169,18 @@ function formatDate(date) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountWeekendsInMonth(m, year) {
+  const month = m - 1;
+  const date = new Date(Date.UTC(year, month, 1));
+  let weekendsCount = 0;
+  while (date.getMonth() === month) {
+    const weekday = date.toLocaleDateString('en', { weekday: 'long' });
+    if (weekday === 'Saturday' || weekday === 'Sunday') {
+      weekendsCount += 1;
+    }
+    date.setDate(date.getDate() + 1);
+  }
+  return weekendsCount;
 }
 
 /**
